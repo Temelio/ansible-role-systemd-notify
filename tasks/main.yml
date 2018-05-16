@@ -1,0 +1,9 @@
+---
+
+# Main tasks file for ansible-role-systemd-notify role
+
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
+  tags:
+    - 'role::systemd-notify'
+    - 'role::systemd-notify::init'

@@ -1,0 +1,12 @@
+---
+
+galaxy_info:
+  author: 'Lise Machetel'
+  description: 'Install email notify for systemd services'
+  company: 'Temelio (https://temelio.com)'
+  license: 'MIT'
+  min_ansible_version: '2.2'
+  github_branch: 'master'
+  platforms: []
+  galaxy_tags: []
+dependencies: []
