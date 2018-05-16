@@ -19,4 +19,4 @@
 - name: 'Converge | Main tasks'
   hosts: 'all'
   roles:
-    - role: "ansible-role-ansible-role-systemd-notify"
+    - role: "ansible-role-systemd-notify"
