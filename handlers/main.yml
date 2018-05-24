@@ -1,0 +1,14 @@
+---
+
+# Handlers main file for ansible-role-systemd-notify role
+
+- name: 'HANDLER | Restart systemd'
+  systemd:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    enabled: "{{ item.enabled }}"
+    daemon_reload: "{{ item.daemon_reload }}"
+  with_items: "{{ systemd_service_states }}"
+  tags:
+    - 'role::systemd-notify'
+    - 'role::systemd-notify::install'

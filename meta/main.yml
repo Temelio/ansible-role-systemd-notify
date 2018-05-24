@@ -1,0 +1,26 @@
+---
+
+galaxy_info:
+  author: 'Lise Machetel'
+  description: 'Install email notify for systemd services'
+  company: 'Temelio (https://temelio.com)'
+  license: 'MIT'
+  min_ansible_version: '2.2'
+  github_branch: 'master'
+  platforms:
+    - name: 'Debian'
+      versions:
+        - 'jessie'
+        - 'stretch'
+    - name: 'Ubuntu'
+      versions:
+        - 'trusty'
+        - 'xenial'
+  galaxy_tags:
+    - 'monitoring'
+    - 'system'
+dependencies:
+  - src: 'https://github.com/Temelio/ansible-role-statsd.git'
+    version: 'feature/statsd__0.3.0'
+    name: 'Temelio.ansible-role-statsd__0.3.0'
+    when: 'systemd_notify_use_ansible_galaxy_dependencies or _use_role_dependencies'

@@ -1,0 +1,6 @@
+---
+
+- src: 'infOpen.locales'
+  version: '0.3.0'
+- src: 'https://github.com/Temelio/ansible-role-statsd.git'
+  version: 'feature/statsd__0.3.0'
