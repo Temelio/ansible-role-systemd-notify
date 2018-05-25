@@ -6,7 +6,7 @@
 [![Updates](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
 [![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
 
-Install ansible-role-systemd-notify package.
+Install email notify for systemd services.
 
 ## Requirements
 
@@ -45,9 +45,10 @@ $ tox
 ``` yaml
 # Dependencies management
 systemd_notify_use_ansible_galaxy_dependencies: True  # Use role dependencies in meta
+ssmtp_use_ansible_galaxy_dependencies: True
 
 
-service_name_to_modify: 'statsd'
+service_name_to_modify: 'statsd' #change it to modify another systemd service
 
 notify_mail_config:
   - src: "{{ role_path }}/templates/systemd.email.j2"
@@ -89,7 +90,11 @@ systemd_notify_options:
 
 ## Dependencies
 
-None
+> You can disable role dependencies using *systemd_notify_use_ansible_galaxy_dependencies* or *ssmtp_use_ansible_galaxy_dependencies* and setting *False*
+
+* [Temelio.statsd](https://galaxy.ansible.com/Temelio/statsd/)
+* [Temelio.ssmtp](https://galaxy.ansible.com/Temelio/ssmtp/)
+
 
 ## Example Playbook
 

@@ -14,13 +14,16 @@ galaxy_info:
         - 'stretch'
     - name: 'Ubuntu'
       versions:
-        - 'trusty'
         - 'xenial'
   galaxy_tags:
     - 'monitoring'
     - 'system'
 dependencies:
-  - src: 'https://github.com/Temelio/ansible-role-statsd.git'
-    version: 'feature/statsd__0.3.0'
-    name: 'Temelio.ansible-role-statsd__0.3.0'
+  - src: 'Temelio.statsd'
+    version: '0.3.0'
+    name: 'Temelio.statsd__0.3.0'
     when: 'systemd_notify_use_ansible_galaxy_dependencies or _use_role_dependencies'
+  - src: 'Temelio.ssmtp'
+    version: '0.1.0'
+    name: 'Temelio.ssmtp__0.1.0'
+    when: 'ssmtp_use_ansible_galaxy_dependencies or _use_role_dependencies'

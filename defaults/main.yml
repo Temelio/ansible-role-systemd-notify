@@ -3,6 +3,7 @@
 # Defaults vars file for ansible-role-systemd-notify role
 # Dependencies management
 systemd_notify_use_ansible_galaxy_dependencies: True  # Use role dependencies in meta
+ssmtp_use_ansible_galaxy_dependencies: True
 
 
 service_name_to_modify: 'statsd'
