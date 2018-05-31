@@ -46,4 +46,3 @@ systemd_notify_options:
     insertafter: '^Description'
     line: 'OnFailure=notify@%n'
     state: 'present'
-    
