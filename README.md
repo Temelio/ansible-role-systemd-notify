@@ -7,6 +7,8 @@
 [![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
 
 Install email notify for systemd services.
+=======
+
 
 ## Requirements
 
