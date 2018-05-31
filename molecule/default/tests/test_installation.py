@@ -2,6 +2,7 @@
 Role tests
 """
 
+import pytest
 import os
 from testinfra.utils.ansible_runner import AnsibleRunner
 
@@ -9,13 +10,29 @@ testinfra_hosts = AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
 
-def test_hosts_file(host):
+@pytest.mark.parametrize('item_type,path,user,group,mode', [
+    ('file', '/etc/systemd/system/notify@.service', 'root', 'root', 0o644),
+    ('file', '/usr/local/bin/systemd-email', 'root', 'root', 0o755),
+])
+def test_paths_properties(host, item_type, path, user, group, mode):
     """
-    Ensure /etc/hosts file exists
+    Test systemd notify files properties
     """
 
-    f = host.file('/etc/hosts')
+    current_item = host.file(path)
 
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+    if item_type == 'directory':
+        assert current_item.is_directory
+    elif item_type == 'file':
+        assert current_item.is_file
+
+    assert current_item.exists
+    assert current_item.user == user
+    assert current_item.group == group
+    assert current_item.mode == mode
+
+
+def test_contains(host):
+    current_item = host.file("/etc/systemd/system/statsd.service")
+
+    assert current_item.contains("OnFailure=notify@%n")

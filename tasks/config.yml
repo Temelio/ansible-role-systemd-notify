@@ -1,0 +1,31 @@
+---
+
+- name: 'CONFIG | Create email script file'
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default(root) }}"
+    group: "{{ item.group | default(root) }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items: "{{ notify_mail_config }}"
+
+
+- name: 'CONFIG | Create notify service configuration file'
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default(root) }}"
+    group: "{{ item.group | default(root) }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items: "{{ notify_service_systemd }}"
+
+
+- name: 'CONFIG | Modify systemd service file'
+  become: True
+  lineinfile:
+    dest: "{{ item.dest }}"
+    insertafter: "{{ item.insertafter }}"
+    line: "{{ item.line }}"
+    state: "{{ item.state }}"
+  with_items: "{{ systemd_notify_options }}"
+  notify: 'HANDLER | Restart systemd'

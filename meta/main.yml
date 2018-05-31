@@ -7,6 +7,23 @@ galaxy_info:
   license: 'MIT'
   min_ansible_version: '2.2'
   github_branch: 'master'
-  platforms: []
-  galaxy_tags: []
-dependencies: []
+  platforms:
+    - name: 'Debian'
+      versions:
+        - 'jessie'
+        - 'stretch'
+    - name: 'Ubuntu'
+      versions:
+        - 'xenial'
+  galaxy_tags:
+    - 'monitoring'
+    - 'system'
+dependencies:
+  - src: 'Temelio.statsd'
+    version: '0.3.1'
+    name: 'Temelio.statsd__0.3.1'
+    when: 'systemd_notify_use_ansible_galaxy_dependencies or _use_role_dependencies'
+  - src: 'Temelio.ssmtp'
+    version: '0.1.0'
+    name: 'Temelio.ssmtp__0.1.0'
+    when: 'ssmtp_use_ansible_galaxy_dependencies or _use_role_dependencies'

@@ -3,7 +3,7 @@
 # Role tests
 
 - name: 'Converge | Prerequisites tasks'
-  hosts: 'ansible-role-systemd-notify-docker-xenial'
+  hosts: 'systemd-notify-docker-xenial'
   gather_facts: False
   tasks:
     - name: 'PREREQUISITES | APT | Do an apt-get update'

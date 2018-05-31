@@ -1,5 +1,14 @@
 ---
 
+ansible:
+  extra_vars:
+    ansible_python_interpreter: '/usr/bin/env python2.7'
+    no_log: 'False'
+  raw_env_vars:
+    ANSIBLE_NOCOWS: 1
+  group_vars:
+    all: {}
+
 dependency:
   name: 'galaxy'
 driver:
@@ -31,8 +40,9 @@ provisioner:
     name: 'ansible-lint'
   inventory:
     group_vars:
-      all: {}
-    host_vars: {}
+      all:
+        nodejs_version: "4.x"
+        nodejs_install_npm_user: "root"
 scenario:
   name: 'default'
 verifier:

@@ -1,8 +1,14 @@
 # ansible-role-systemd-notify
 
 [![Build Status](https://travis-ci.org/Temelio/ansible-role-systemd-notify.svg?branch=master)](https://travis-ci.org/Temelio/ansible-role-systemd-notify)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-systemd-notify/master.svg?label=travis_master)](https://travis-ci.org/Temelio/ansible-role-systemd-notify)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-systemd-notify/develop.svg?label=travis_develop)](https://travis-ci.org/Temelio/ansible-role-systemd-notify)
+[![Updates](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
+[![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
 
-Install ansible-role-systemd-notify package.
+Install email notify for systemd services.
+=======
+
 
 ## Requirements
 
@@ -39,18 +45,66 @@ $ tox
 ### Default role variables
 
 ``` yaml
+# Dependencies management
+systemd_notify_use_ansible_galaxy_dependencies: True  # Use role dependencies in meta
+ssmtp_use_ansible_galaxy_dependencies: True
+
+
+service_name_to_modify: 'statsd' #change it to modify another systemd service
+
+notify_mail_config:
+  - src: "{{ role_path }}/templates/systemd.email.j2"
+    dest: '/usr/local/bin/systemd-email'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+
+notify_service_systemd:
+  - src: "{{ role_path }}/templates/notify.service.j2"
+    dest: '/etc/systemd/system/notify@.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+    options:
+      Unit:
+        Description: 'status email for %i to user'
+        After: 'network.target'
+      Service:
+        Type: 'oneshot'
+        ExecStart: '/usr/local/bin/systemd-email {{ notify_toEmail }} %i'
+        User: 'nobody'
+        Group: 'systemd-journal'
+
+notify_fromEmail: 'toto@example.com'
+notify_toEmail: 'toto@example.com'
+
+systemd_service_states:
+  - name: "{{ service_name_to_modify }}"
+    state: "started"
+    enabled: True
+    daemon_reload: True
+
+systemd_notify_options:
+  - dest: "/etc/systemd/system/{{ service_name_to_modify }}.service"
+    insertafter: '^Description'
+    line: 'OnFailure=notify@%n'
+    state: 'present'
 ```
 
 ## Dependencies
 
-None
+> You can disable role dependencies using *systemd_notify_use_ansible_galaxy_dependencies* or *ssmtp_use_ansible_galaxy_dependencies* and setting *False*
+
+* [Temelio.statsd](https://galaxy.ansible.com/Temelio/statsd/)
+* [Temelio.ssmtp](https://galaxy.ansible.com/Temelio/ssmtp/)
+
 
 ## Example Playbook
 
 ``` yaml
 - hosts: servers
   roles:
-    - { role: Temelio.ansible-role-systemd-notify }
+    - { role: Temelio.systemd-notify }
 ```
 
 ## License
