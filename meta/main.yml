@@ -20,8 +20,8 @@ galaxy_info:
     - 'system'
 dependencies:
   - src: 'Temelio.statsd'
-    version: '0.3.0'
-    name: 'Temelio.statsd__0.3.0'
+    version: '0.3.1'
+    name: 'Temelio.statsd__0.3.1'
     when: 'systemd_notify_use_ansible_galaxy_dependencies or _use_role_dependencies'
   - src: 'Temelio.ssmtp'
     version: '0.1.0'

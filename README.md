@@ -86,6 +86,7 @@ systemd_notify_options:
   - dest: "/etc/systemd/system/{{ service_name_to_modify }}.service"
     insertafter: '^Description'
     line: 'OnFailure=notify@%n'
+    state: 'present'
 ```
 
 ## Dependencies

@@ -18,7 +18,7 @@
     group: "{{ item.group | default(root) }}"
     mode: "{{ item.mode | default('0755') }}"
   with_items: "{{ notify_service_systemd }}"
-  register: create_notify_service_config_file
+
 
 - name: 'CONFIG | Modify systemd service file'
   become: True
@@ -26,6 +26,6 @@
     dest: "{{ item.dest }}"
     insertafter: "{{ item.insertafter }}"
     line: "{{ item.line }}"
+    state: "{{ item.state }}"
   with_items: "{{ systemd_notify_options }}"
   notify: 'HANDLER | Restart systemd'
-  when: create_notify_service_config_file.changed

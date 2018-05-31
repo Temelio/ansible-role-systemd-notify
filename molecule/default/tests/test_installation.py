@@ -11,8 +11,8 @@ testinfra_hosts = AnsibleRunner(
 
 
 @pytest.mark.parametrize('item_type,path,user,group,mode', [
-    ('file', '/etc/systemd/system/notify@service', 'root', 'root', 0o644),
-    ('file', '/usr/loca/bin/systemd.email', 'root', 'root', 0o755),
+    ('file', '/etc/systemd/system/notify@.service', 'root', 'root', 0o644),
+    ('file', '/usr/local/bin/systemd-email', 'root', 'root', 0o755),
 ])
 def test_paths_properties(host, item_type, path, user, group, mode):
     """
@@ -30,3 +30,9 @@ def test_paths_properties(host, item_type, path, user, group, mode):
     assert current_item.user == user
     assert current_item.group == group
     assert current_item.mode == mode
+
+
+def test_contains(host):
+    current_item = host.file("/etc/systemd/system/statsd.service")
+
+    assert current_item.contains("OnFailure=notify@%n")
