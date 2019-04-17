@@ -7,7 +7,7 @@ systemd_notify_use_ansible_galaxy_dependencies: True  # Use role dependencies in
 ssmtp_use_ansible_galaxy_dependencies: True
 
 
-service_name_to_modify: 'statsd'
+service_name_to_modify: 'sshd'
 
 notify_mail_config:
   - src: "{{ role_path }}/templates/systemd.email.j2"
@@ -32,8 +32,8 @@ notify_service_systemd:
         User: 'nobody'
         Group: 'systemd-journal'
 
-notify_fromEmail: 'toto@example.com'
-notify_toEmail: 'toto@example.com'
+notify_fromEmail: 'change@me.com'
+notify_toEmail: 'change@me.com'
 
 systemd_service_states:
   - name: "{{ service_name_to_modify }}"

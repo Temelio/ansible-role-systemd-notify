@@ -28,4 +28,4 @@
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items: "{{ systemd_notify_options }}"
-  notify: 'HANDLER | Restart systemd'
+  notify: 'HANDLER | Reload systemd'

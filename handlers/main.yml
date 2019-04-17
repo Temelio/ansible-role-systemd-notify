@@ -12,3 +12,7 @@
   tags:
     - 'role::systemd-notify'
     - 'role::systemd-notify::install'
+
+- name: 'HANDLER | Reload systemd'
+  systemd:
+    daemon_reload: true

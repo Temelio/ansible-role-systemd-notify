@@ -33,6 +33,6 @@ def test_paths_properties(host, item_type, path, user, group, mode):
 
 
 def test_contains(host):
-    current_item = host.file("/etc/systemd/system/statsd.service")
+    current_item = host.file("/etc/systemd/system/sshd.service")
 
     assert current_item.contains("OnFailure=notify@%n")

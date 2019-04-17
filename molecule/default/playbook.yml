@@ -15,6 +15,19 @@
       raw: 'apt-get install -qq python2.7'
       changed_when: False
 
+- name: 'Prerequisites tasks | install a systemd file to be able to test its modification'
+  hosts: 'all'
+  gather_facts: False
+  tasks:
+    - name: 'PREREQUISITES | APT | Do an apt-get update'
+      become: True
+      raw: 'apt-get update -qq'
+      changed_when: False
+    - name: 'PREREQUISITES | APT | install open-sshserver'
+      become: True
+      raw: 'apt-get install -qq openssh-server'
+      changed_when: False
+
 
 - name: 'Converge | Main tasks'
   hosts: 'all'
