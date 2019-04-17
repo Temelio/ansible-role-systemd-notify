@@ -16,13 +16,7 @@ driver:
 lint:
   name: 'yamllint'
 platforms:
-  - name: "systemd-notify-docker-jessie"
-    image: 'minimum2scp/systemd-jessie:latest'
-    command: '/sbin/init'
-    cap_add:
-      - 'SYS_PTRACE'
-    privileged: True
-  - name: "systemd-notify-docker-strech"
+  - name: "systemd-notify-docker-stretch"
     image: 'minimum2scp/systemd-stretch'
     command: '/sbin/init'
     cap_add:
@@ -34,15 +28,16 @@ platforms:
     cap_add:
       - 'SYS_PTRACE'
     privileged: True
+  - name: 'systemd-notify-docker-bionic'
+    image: 'solita/ubuntu-systemd:18.04'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+    privileged: True
 provisioner:
   name: 'ansible'
   lint:
     name: 'ansible-lint'
-  inventory:
-    group_vars:
-      all:
-        nodejs_version: "4.x"
-        nodejs_install_npm_user: "root"
 scenario:
   name: 'default'
 verifier:

@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=foobar service
+Wants=foobar
+
+[Service]
+Type=single
+User=root
+ExecStart=/bin/bash

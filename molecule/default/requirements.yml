@@ -1,11 +1,4 @@
 ---
 
-- src: 'infOpen.locales'
-  version: '0.3.0'
-  name: 'infOpen.locales__0.3.0'
-- src: 'Temelio.statsd'
-  version: '0.3.1'
-  name: 'Temelio.statsd__0.3.1'
 - src: 'Temelio.ssmtp'
   version: '0.1.0'
-  name: 'Temelio.ssmtp__0.1.0'
