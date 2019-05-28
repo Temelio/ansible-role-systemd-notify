@@ -1,20 +1,13 @@
 #!/bin/bash
-export file=/tmp/sendmail.txt
+file=$(mktemp)
 
-
-if [ ! -f $file ]; then 
-  echo "TO: $1" >> $file
-  echo "From: {{ notify_fromEmail }}" >> $file
-  echo "Subject: $HOSTNAME - $2" >> $file
-  echo "Content-Transfer-Encoding: 8bit" >> $file
-  echo "Content-Type: text/plain; charset=UTF-8" >> $file
-  echo "$(systemctl status --full "$2")" >> $file
-  cat $file |/usr/sbin/sendmail -t;
-fi
-
-if [ -f $file ]; then 
-  if [ "$(( $(date +"%s") - $(stat -c "%Y" $file) ))" -gt "600" ]; then
-    cat $file |/usr/sbin/sendmail -t;
-    rm $file
-  fi
-fi
+echo "TO: $1" >> $file
+echo "From: admin@temelio.com" >> $file
+echo "Subject: $HOSTNAME - $2" >> $file
+echo "Content-Transfer-Encoding: 8bit" >> $file
+echo "Content-Type: text/plain; charset=UTF-8" >> $file
+echo "$(systemctl status --full "$2")" >> $file
+echo "------------------------- logs tail -n 100 ------------------------" >> $file
+echo "$(journalctl -n 100 -u "$2")" >> $file
+cat $file |/usr/sbin/sendmail -t;
+rm $file;

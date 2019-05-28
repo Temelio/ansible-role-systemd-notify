@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/travis/Temelio/ansible-role-systemd-notify/develop.svg?label=travis_develop)](https://travis-ci.org/Temelio/ansible-role-systemd-notify)
 [![Updates](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
 [![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-systemd-notify/)
-[![Ansible Role](https://img.shields.io/ansible/role/11378.svg)](https://galaxy.ansible.com/Temelio/systemd-notify/)
+[![Ansible Role](https://img.shields.io/ansible/role/25667.svg)](https://galaxy.ansible.com/Temelio/systemd-notify/)
 [![GitHub tag](https://img.shields.io/github/tag/temelio/ansible-role-systemd-notify.svg)](https://github.com/Temelio/ansible-role-systemd-notify/tags)
 
 Install email notify for a systemd service.
