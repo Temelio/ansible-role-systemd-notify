@@ -8,6 +8,12 @@
     - 'role::systemd-notify'
     - 'role::systemd-notify::init'
 
+- name: 'INSTALL | Install package with lockfile'
+  become: True
+  include_tasks: "{{ role_path }}/tasks/install.yml"
+  tags:
+    - 'role::systemd-notify'
+    - 'role::systemd-notify::install'
 
 - name: 'CONFIG | Manage config tasks'
   become: 'True'

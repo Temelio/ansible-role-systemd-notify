@@ -1,13 +1,22 @@
 #!/bin/bash
-file=$(mktemp)
+ERRORMAIL=$(mktemp)
+LOCKFILE="/var/lock/$2"
+FROMAIL="{{ notify_fromEmail }}"
+SUBJECT=$(hostname -f)
+set -eux
 
-echo "TO: $1" >> $file
-echo "From: admin@temelio.com" >> $file
-echo "Subject: $HOSTNAME - $2" >> $file
-echo "Content-Transfer-Encoding: 8bit" >> $file
-echo "Content-Type: text/plain; charset=UTF-8" >> $file
-echo "$(systemctl status --full "$2")" >> $file
-echo "------------------------- logs tail -n 100 ------------------------" >> $file
-echo "$(journalctl -n 100 -u "$2")" >> $file
-cat $file |/usr/sbin/sendmail -t;
-rm $file;
+if  lockfile -r0 -l900 $LOCKFFILE; then
+        echo "TO: $1" >> $ERRORMAIL
+        echo "From: $FROMAIL" >> $ERRORMAIL
+        echo "Subject: $SUBJECT - $2" >> $ERRORMAIL
+        echo "Content-Transfer-Encoding: 8bit" >> $ERRORMAIL
+        echo "Content-Type: text/plain; charset=UTF-8" >> $ERRORMAIL
+        echo "$(systemctl status --full "$2")" >> $ERRORMAIL
+        echo "------------------------- logs tail -n 100 ------------------------" >> $ERRORMAIL
+        echo "$(journalctl -n 100 -u "$2")" >> $ERRORMAIL
+        cat $ERRORMAIL |/usr/sbin/sendmail -t;
+        rm $ERRORMAIL;
+else
+        echo 1>&2 "Fatal error: another process has been keeping the lock for too long or the lock file is inaccessible"
+        exit 3
+fi

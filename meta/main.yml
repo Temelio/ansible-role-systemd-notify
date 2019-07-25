@@ -20,5 +20,5 @@ galaxy_info:
     - 'system'
 dependencies:
   - src: 'Temelio.ssmtp'
-    version: '0.1.0'
+    version: '0.1.1'
     when: 'ssmtp_use_ansible_galaxy_dependencies or _use_role_dependencies'
