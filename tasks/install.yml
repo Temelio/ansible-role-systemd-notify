@@ -1,0 +1,6 @@
+---
+
+- name: 'INSTALL | install procmail'
+  apt:
+    name: 'procmail'
+    state: 'present'
