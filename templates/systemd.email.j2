@@ -2,12 +2,13 @@
 ERRORMAIL=$(mktemp)
 LOCKFILE="/var/lock/$2"
 FROMAIL="{{ notify_fromEmail }}"
+SUBJECT=$(hostname -f)
 set -eux
 
-if  lockfile -r0 -l900 $LOCKFD; then
+if  lockfile -r0 -l900 $LOCKFFILE; then
         echo "TO: $1" >> $ERRORMAIL
         echo "From: $FROMAIL" >> $ERRORMAIL
-        echo "Subject: $HOSTNAME - $2" >> $ERRORMAIL
+        echo "Subject: $SUBJECT - $2" >> $ERRORMAIL
         echo "Content-Transfer-Encoding: 8bit" >> $ERRORMAIL
         echo "Content-Type: text/plain; charset=UTF-8" >> $ERRORMAIL
         echo "$(systemctl status --full "$2")" >> $ERRORMAIL
